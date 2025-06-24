@@ -1,79 +1,120 @@
-# SommelAI – Wine Pour Logic Simulator
-# SommelAI 🍷
 
-A whimsical but technically grounded simulation project reconstructing a 2017 concept to demonstrate feedback control loop design and robotic manipulation logic.
+# SommelAI
 
----
+SommelAI is a Ruby-based simulation of a robotic sommelier that selects and “pours” wine based on user emotion, heart rate, and social context. It applies principles from (1) PID feedback control (2) signal smoothing and (3) state-based decision modeling to create a playful, technically grounded example of how robotics might interact with human inputs.
 
-## Project Intent
-This project was built as part of a group technical competition and I am reconstituting it to demonstrate my h to 
-
-Rather than building a hardware prototype, this simulation reimagines a project originally conceived in Paris in 2017: a playful robotic wine sommelier displayed on-screen. The updated version demonstrates core robotic control system concepts using modern simulation techniques and plain Ruby logic — portable, testable, and educational.
+This project was originally developed during a startup weekend in Paris and is now maintained as a showcase of real-time control strategies and intelligent behavior mapping for robotic systems.
 
 ---
 
-## 🎭 Concept Overview
-What if a robot could respond to your heart rate and emotional state in order to select the perfect wine to pour, with the perfect amount for your current situation?
+## 🎯 Project Goals
 
-This project explores that using:
+SommelAI is not a production app. It is designed to:
 
-- Simulated heart rate streaming input
-In the original project, we used a Microsoft Band 2 connected to a PC via USB to provide real-time data thru the Microsoft Health API
-- Emotion-based decision rules based on live Q & A submitted in real time by the user
-- A control loop that determines pour behavior, volume, correct type of wine glass, and a carafe if there were more than 1 person according to user input.
-
-This codebase models the decision architecture of a robotic wine pourer, and lays the groundwork for future robotic implementations involving real sensors, servos, and manipulators.
+- Demonstrate robotic control loop principles (PID)
+- Use sliding window smoothing to process time-series inputs
+- Apply decision logic to modulate behavior based on context
+- Serve as a creative and technically clear example of feedback control + decision mapping
 
 ---
 
-## 🤖 Engineering Concepts Demonstrated
+## ⚙️ Engineering Concepts Demonstrated
 
-### ✅ 1. Feedback Control Loops
-- A PID controller adjusts pour speed based on the error between target and actual heart rate
-- Simulates how a robot modulates motion over time with streaming input
+### 1. PID Feedback Control
+The project uses a PID controller to adjust wine pouring behavior based on the difference between a target heart rate and a smoothed, real-time heart rate average. This mimics robotic control loops where actions are constantly corrected based on sensor input.
 
-### ✅ 2. State Mapping and Behavioral Modeling
-- Heart rate is bucketed into "High" or "Low" categories
-- Combined with emotion state to determine motion logic
-- Maps emotional context to wine type and delivery style
+### 2. Sliding Window Input Processing
+A fixed-size buffer smooths noisy heart rate data over time, simulating how real robotic systems avoid reacting to outliers or spikes. This supports stable, expressive pour behavior over time.
 
-### ✅ 3. Robotic Manipulator Planning (Simulated)
-- Outputs include:
-  - Wine selection
-  - Pour volume (single or carafe)
-  - Glassware (e.g., Coupe, Verre à Bourgogne)
-  - Pour style (e.g., “Fast with flourish”, “Slow & lingered”)
-- Pour speed is dynamically adjusted via PID feedback
+### 3. Contextual State Mapping
+User emotion, heart rate state, and social context (alone or with others) are mapped to:
+- Wine type (e.g. Bourgogne, Champagne)
+- Pour volume
+- Pour style
+- Glass or vessel (e.g. coupe, carafe)
 
-> While no physical robot is used here, all control decisions are modeled as if they were to be executed by a robotic manipulator.
+All decision logic is centralized and modular in the `StreamingPourLogic` class.
 
 ---
 
-## 🧪 How It Works
-- `streaming_pour_logic.rb`: core logic engine
-- `simulate_input.rb`: interactive emotion/HR simulation
-- `feedback_control_simulator.rb`: full PID-driven loop over time-series heart rate data
+## 🗃️ Why There’s No Real Database
 
-Run using:
-```bash
-ruby scripts/simulate_input.rb
-ruby scripts/feedback_control_simulator.rb
-```
+This project intentionally **does not include persistent data storage** like a full SQLite workflow. While session data could be logged, the project is focused on real-time behavior and control logic — not persistence or UI.
+
+All output is presented in the console for simplicity and clarity.
 
 ---
 
-## 🛠️ Future Use in Robotics
-While this version is text-based, it can be adapted to:
-- Drive real-world robotic arms
-- Use sensor input (e.g., heart rate monitors)
-- Trigger animations or UI feedback
-- Train on human feedback to adapt pouring motion
+## 📂 Project Structure
 
-This project lays a flexible foundation to explore robotics concepts in an accessible and fun context.
+| File | Description |
+|------|-------------|
+| `feedback_after_user_input.rb` | CLI interface that collects emotion and social context, simulates heart rate input, and generates a personalized pour decision |
+| `feedback_control_with_window.rb` | Time-series simulation using a sliding window and PID controller to demonstrate smooth, responsive behavior over time |
+| `simulate_input.rb` | Lightweight demo script for testing single-input decisions quickly |
+| `streaming_pour_logic.rb` | Central decision engine that maps input states to wine type, volume, pour style, and vessel |
+| `db/setup.rb` (optional) | Schema setup script for a SQLite database (not currently required or used) |
 
 ---
 
-## 💡 Why This Project?
-Because even roboticists need a little wine — and humor — while demonstrating serious technical skills.
+## 🧪 Example Outputs
 
-Built with 🍷 and precision in Codespaces, on an iPad, as a love letter to rob
+CLI responses include:
+- Emotion and social prompts
+- Simulated heart rate stream or snapshot
+- Final pour recommendation:
+  - 🥂 Wine Type
+  - 🍷 Glass or Carafe
+  - 📏 Pour Volume
+  - 🎨 Pour Style
+  - 🖼️ Icon Path
+
+---
+
+## 🚀 Running the Project
+
+1. Clone the repo:
+   ```bash
+   git clone https://github.com/yourusername/sommelai.git
+   cd sommelai
+````
+
+2. Install dependencies:
+
+   ```bash
+   bundle install
+   ```
+
+3. Run one of the scripts:
+
+   * Interactive session:
+
+     ```bash
+     ruby scripts/feedback_after_user_input.rb
+     ```
+   * Simulated control loop:
+
+     ```bash
+     ruby scripts/feedback_control_with_window.rb
+     ```
+   * Quick test:
+
+     ```bash
+     ruby scripts/simulate_input.rb
+     ```
+
+---
+
+## 🧠 Future Ideas
+
+* Add visual pour animation
+* Replace HR simulation with live input
+* Log decisions or generate session reports
+
+---
+
+## 🥂 About the Project
+
+SommelAI was created during a startup weekend in Paris as a whimsical, technically sound project to explore robotics-inspired behavioral design. It continues to evolve as a personal showcase of engineering creativity and control logic fundamentals.
+
+---
