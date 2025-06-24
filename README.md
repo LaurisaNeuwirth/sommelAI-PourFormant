@@ -6,11 +6,7 @@ A whimsical but technically grounded simulation project reconstructing a 2017 co
 ---
 
 ## Project Intent
-This project was built as part of a group technical competition and I am reconstituting it to demonstrate my expereince in:
-
-- Developing feedback control loop algorithms
-
-- Designing control software for robotic manipulators
+This project was built as part of a group technical competition and I am reconstituting it to demonstrate my h to 
 
 Rather than building a hardware prototype, this simulation reimagines a project originally conceived in Paris in 2017: a playful robotic wine sommelier displayed on-screen. The updated version demonstrates core robotic control system concepts using modern simulation techniques and plain Ruby logic — portable, testable, and educational.
 
