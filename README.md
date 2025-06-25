@@ -59,16 +59,32 @@ All output is presented in the console for simplicity and clarity.
 ---
 
 ## Example Outputs
+CLI interaction includes:
 
-CLI responses include:
-- Emotion and social prompts
-- Simulated heart rate stream or snapshot
-- Final pour recommendation:
-  - 🥂 Wine Type
-  - 🍷 Glass or Carafe
-  - 📏 Pour Volume
-  - 🎨 Pour Style
-  - 🖼️ Icon Path
+- Emotion Prompt: 
+User selects a mood from this list:
+Celebrate
+Relaxing
+Thoughtful
+Romantic
+Reflective
+On Vacation
+Calm/Fresh
+
+- Companionship Prompt: 
+User specifies if they are alone (yes) or accompanied (no).
+
+- Simulated Heart Rate Stream: A sequence of heart rate readings is sampled over time and smoothed using a fixed-size sliding window to produce stable input for decision-making.
+
+- Heart Rate Summary:
+Real-time HR values shown during the session
+Computed average HR used to determine emotional arousal level (e.g., High vs. Low)
+
+- Pour Decision (based on average HR + selected emotion + companionship status):
+- Wine Type (e.g., Bourgogne, Champagne, Rosé)
+- Glass or Vessel (e.g., Verre à Bourgogne, Verre tulipe, carafe for sharing)
+- Pour Volume (e.g., 150mL solo, 500mL for two)
+- Pour Style (e.g., "Slow & lingered", "Lazy & relaxed", "Fast with flourish")
 
 ---
 
